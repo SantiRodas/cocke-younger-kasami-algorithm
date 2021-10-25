@@ -33,6 +33,8 @@ public class Controller {
 
 	// --------------------------------------------------------------------------------
 
+	// JavaFX with the information of the general pane of the system
+
 	@FXML
 	private TabPane tabPane;
 
@@ -44,19 +46,23 @@ public class Controller {
 
 	@FXML
 	private Pane tabPane1;
-	
+
 	@FXML
 	private Pane tabPane2;
-	
+
 	// --------------------------------------------------------------------------------
+
+	// JavaFX with the information of the general box of the system
 
 	@FXML
 	private VBox CFGPane;
-	
+
 	@FXML
 	private VBox CYKPane;
-	
+
 	// --------------------------------------------------------------------------------
+
+	// JavaFX with the information of the general controls of the system
 
 	@FXML
 	private TextField WTextField;
@@ -75,11 +81,19 @@ public class Controller {
 
 	// --------------------------------------------------------------------------------
 
+	// Constants and relations
+
 	public static final String LAMBDA = "λ";
 
 	private System cyk;
 
 	// --------------------------------------------------------------------------------
+
+	// Initialize method
+
+	/**
+	 * Initialize method to have "a first" version of the system.
+	 */
 
 	@FXML
 	public void initialize() {
@@ -94,114 +108,45 @@ public class Controller {
 
 		CFGPane.setDisable(true);
 
-		resetButton.setDisable(true);
-
 		newRow();
 
 	}
-	
+
 	// --------------------------------------------------------------------------------
-
-	private void newRow(){
-
-		HBox box = new HBox();
-		
-		CFGPane.getChildren().add(box);
-
-		box.prefWidth(685d);
-		
-		box.prefHeight(50d);
-		
-		box.setAlignment(Pos.CENTER);
-		
-		box.setSpacing(3d);
-
-		TextField informationTextField = new TextField();
-		
-		box.getChildren().add(informationTextField);
-		
-		informationTextField.setPrefSize(80d, 30d);
-		
-		informationTextField.setAlignment(Pos.CENTER);
-		
-		informationTextField.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-		
-		informationTextField.setFont(Font.font("System", FontWeight.BOLD, 14d));
-
-		TextField emptyTextField = new TextField();
-		
-		box.getChildren().add(emptyTextField);
-		
-		emptyTextField.setPrefSize(80d, 30d);
-		
-		emptyTextField.setAlignment(Pos.CENTER);
-		
-		emptyTextField.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-		
-		emptyTextField.setFont(Font.font("System", FontWeight.BOLD, 14d));
-		
-		emptyTextField.setText("->");
-		
-		emptyTextField.setEditable(false);
-
-		TextField resultTextField = new TextField();
-		
-		box.getChildren().add(resultTextField);
-		
-		resultTextField.setPrefSize(505d, 30d);
-		
-		resultTextField.setAlignment(Pos.CENTER_LEFT);
-		
-		resultTextField.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-		
-		resultTextField.setFont(Font.font("System", 14d));
-
-		informationTextField.setOnKeyPressed(event -> {
-			
-			if(event.getCode()== KeyCode.ENTER && !informationTextField.getText().equals("")){
-				
-				resultTextField.setText(resultTextField.getText() + LAMBDA);
-				
-			}
-			
-		});
-		
-	}
 	
-	// --------------------------------------------------------------------------------
-
-	@FXML
-	public void addRow(ActionEvent event) {
-
-		newRow();
-
-	}
+	// Add String method
 	
-	// --------------------------------------------------------------------------------
+	/**
+	 * Method to take the String W from the user interface.
+	 * @param event JavaFX information 
+	 * @see The documentation of Java 8
+	 */
 
 	@FXML
 	public void addString(ActionEvent event) {
 
 		TextInputDialog informationInputDialog = new TextInputDialog();
-		
+
 		informationInputDialog.setHeaderText(null);
-		
+
 		informationInputDialog.setTitle("Important information");
-		
+
 		informationInputDialog.setContentText("Enter a value for W");
-		
+
 		Optional<String> inputUserInformation = informationInputDialog.showAndWait();
 
 		try{
-			
+
 			if(!inputUserInformation.get().isEmpty()){
-				
+
 				WTextField.setText(inputUserInformation.get());
-				
-			}
 
-		}catch (NoSuchElementException e){
+			} 
 
+		} catch (NoSuchElementException e1){
+
+			// It's better if we put this here
+			
 		}
 
 		WTextField.setAlignment(Pos.CENTER);
@@ -215,37 +160,33 @@ public class Controller {
 		stringButton.setDisable(true);
 
 	}
-	
+
 	// --------------------------------------------------------------------------------
+	
+	// Add row method
+	
+	/**
+	 * Method to add a row into the user interface (call another method).
+	 * @param event JavaFX information 
+	 * @see The documentation of Java 8
+	 */
 
 	@FXML
-	public void reset(ActionEvent event) {
-
-		CFGPane.getChildren().clear();
-		
-		CYKPane.getChildren().clear();
-
-		WTextField.setText("");
-		
-		this.cyk = null;
+	public void addRow(ActionEvent event) {
 
 		newRow();
-		
-		resultTab.setDisable(true);
-
-		CYKPane.setDisable(false);
-
-		tabPane.getSelectionModel().select(CFGTab);
-
-		CFGPane.setDisable(true);
-
-		stringButton.setDisable(false);
-
-		resetButton.setDisable(true);
 
 	}
-	
+
 	// --------------------------------------------------------------------------------
+	
+	// Run system method
+	
+	/**
+	 * Method to calculate the information and generate the CYK algorithm.
+	 * @param event JavaFX information 
+	 * @see The documentation of Java 8
+	 */
 
 	@FXML
 	public void runSystem(ActionEvent event) {
@@ -253,19 +194,19 @@ public class Controller {
 		CYKPane.getChildren().clear();
 
 		this.cyk = new System(informationToMatrix(), WTextField.getText().length());
-		
+
 		this.cyk.addValueMap();
-		
+
 		this.cyk.addColumn(WTextField.getText());
-		
+
 		this.cyk.CYKAlgorithm(WTextField.getText());
 
 		showMessage();
-		
+
 		generateMatrix();
 
 		resultTab.setDisable(false);
-		
+
 		tabPane.getSelectionModel().select(resultTab);
 
 		stringButton.setDisable(true);
@@ -279,167 +220,302 @@ public class Controller {
 		resetButton.setDisable(false);
 
 	}
-	
+
 	// --------------------------------------------------------------------------------
+	
+	// Reset method
+	
+	/**
+	 * Method to reset the user interface and clean the information of the system.
+	 * @param event JavaFX information 
+	 * @see The documentation of Java 8
+	 */
+
+	@FXML
+	public void reset(ActionEvent event) {
+
+		CFGPane.getChildren().clear();
+
+		CYKPane.getChildren().clear();
+
+		WTextField.setText("");
+
+		this.cyk = null;
+
+		newRow();
+
+		resultTab.setDisable(true);
+
+		CYKPane.setDisable(false);
+
+		tabPane.getSelectionModel().select(CFGTab);
+
+		CFGPane.setDisable(true);
+
+		stringButton.setDisable(false);
+
+	}
+
+	// --------------------------------------------------------------------------------
+	
+	// New row method
+	
+	/**
+	 * Private method to add a new row into the system (user interface).
+	 */
+
+	private void newRow(){
+
+		HBox box = new HBox();
+
+		CFGPane.getChildren().add(box);
+
+		box.prefWidth(685d);
+
+		box.prefHeight(50d);
+
+		box.setAlignment(Pos.CENTER);
+
+		box.setSpacing(3d);
+
+		TextField informationTextField = new TextField();
+
+		box.getChildren().add(informationTextField);
+
+		informationTextField.setPrefSize(80d, 30d);
+
+		informationTextField.setAlignment(Pos.CENTER);
+
+		informationTextField.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+
+		informationTextField.setFont(Font.font("System", FontWeight.BOLD, 14d));
+
+		TextField emptyTextField = new TextField();
+
+		box.getChildren().add(emptyTextField);
+
+		emptyTextField.setPrefSize(80d, 30d);
+
+		emptyTextField.setAlignment(Pos.CENTER);
+
+		emptyTextField.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+
+		emptyTextField.setFont(Font.font("System", FontWeight.BOLD, 14d));
+
+		emptyTextField.setText("->");
+
+		emptyTextField.setEditable(false);
+
+		TextField resultTextField = new TextField();
+
+		box.getChildren().add(resultTextField);
+
+		resultTextField.setPrefSize(505d, 30d);
+
+		resultTextField.setAlignment(Pos.CENTER_LEFT);
+
+		resultTextField.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+
+		resultTextField.setFont(Font.font("System", 14d));
+
+		informationTextField.setOnKeyPressed(event -> {
+
+			if(event.getCode()== KeyCode.ENTER && !informationTextField.getText().equals("")){
+
+				resultTextField.setText(resultTextField.getText() + LAMBDA);
+
+			}
+
+		});
+
+	}
+
+	// --------------------------------------------------------------------------------
+	
+	// Information to matrix method
+	
+	/**
+	 * Private method to take the information and create a new matrix with that information.
+	 * @return Matrix string with the information
+	 */
 
 	private String[][] informationToMatrix() {
-		
+
 		String[][] information = new String[CFGPane.getChildren().size()][2];
 
 		for (int a = 0; a < CFGPane.getChildren().size(); a ++) {
-			
+
 			HBox box = (HBox) CFGPane.getChildren().get(a);
 
 			TextField tf1 = (TextField) box.getChildren().get(0);
-			
+
 			TextField tf2 = (TextField) box.getChildren().get(2);
 
 			information[a][0] = tf1.getText();
-			
+
 			information[a][1] = tf2.getText();
-			
+
 		}
-		
+
 		return information;
-		
+
 	}
-	
+
 	// --------------------------------------------------------------------------------
+	
+	// Show message
+	
+	/**
+	 * Private method to show a message to the user. This message is the final result.
+	 */
 
 	private void showMessage() {
 
 		TextField tf = new TextField();
-		
+
 		CYKPane.getChildren().add(tf);
 
 		tf.setAlignment(Pos.CENTER);
-		
+
 		tf.setEditable(false);
-		
+
 		tf.setPrefSize(698, 30d);
 
 		tf.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-		
+
 		tf.setFont(Font.font("System", FontWeight.BOLD, 14));
 
 		if (this.cyk.containsFeature()) {
-			
+
 			tf.setText("The input string is generated by the GIC");
-			
+
 			tf.setBackground( new Background(new BackgroundFill(Color.GOLD, CornerRadii.EMPTY, Insets.EMPTY)));
 
 		} else {
-			
+
 			tf.setText("The string entered is not generated by the GIC");
-			
+
 			tf.setBackground(new Background(new BackgroundFill(Color.GOLD, CornerRadii.EMPTY, Insets.EMPTY)));
-		
+
 		}
-		
+
 	}
-	
+
 	// --------------------------------------------------------------------------------
+	
+	// Generate matrix method
+	
+	/**
+	 * Private method to generate the matrix of the system with the information of the user interface.
+	 */
 
 	private void generateMatrix() {
-		
+
 		HBox box1 = new HBox();
-		
+
 		VBox box2 = new VBox();
 
 		box1.setSpacing(3d);
-		
+
 		box1.setAlignment(Pos.CENTER);
-		
+
 		box2.getChildren().add(box1);
 
 		Label userInformation1 = new Label();
-		
+
 		userInformation1.setPrefHeight(30);
-		
+
 		userInformation1.setPrefWidth(40);
-		
+
 		box1.getChildren().add(userInformation1);
 
 		for (int a = 0; a < WTextField.getText().length(); a ++) {
-			
+
 			Label userInformation2 = new Label();
-			
+
 			userInformation2.setAlignment(Pos.CENTER);
-			
+
 			userInformation2.setPrefHeight(30);
-			
+
 			userInformation2.setPrefWidth(40);
 
 			userInformation2.setText("j= " + (a + 1));
-			
+
 			box1.getChildren().add(userInformation2);
-			
+
 		}
-		
+
 		printMatrix(box2);
-		
+
 	}
-	
+
 	// --------------------------------------------------------------------------------
+	
+	// Print matrix method
+	
+	/**
+	 * Method to print the final matrix of the system.
+	 * @param box Part of the system where the system it's going to show the information
+	 */
 
 	private void printMatrix(VBox box) {
-		
+
 		GridPane pane = new GridPane();
-		
+
 		String[][] rmatrix = this.cyk.getResultMatrix();
 
 		pane.setHgap(3);
-		
+
 		pane.setVgap(3);
-		
+
 		pane.setAlignment(Pos.CENTER);
 
 		for (int a = 0; a < rmatrix.length; a ++) {
 
 			Label informationUser1 = new Label("i= " + (a + 1));
-			
+
 			informationUser1.setAlignment(Pos.CENTER);
-			
+
 			informationUser1.setPrefHeight(30);
-			
+
 			informationUser1.setPrefWidth(40);
-			
+
 			pane.add(informationUser1, 0, (a + 1));
 
 			for (int b = 0; b < rmatrix[0].length; b ++) {
 
 				Label informationUser2 = new Label();
-				
+
 				informationUser2.setAlignment(Pos.CENTER);
-				
+
 				informationUser2.setPrefHeight(30);
-				
+
 				informationUser2.setPrefWidth(40);
-				
+
 				informationUser2.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
 				if (rmatrix[a][b] != null) {
-					
+
 					informationUser2.setText("{" + rmatrix[a][b] + "}");
-					
+
 				} else {
-					
+
 					informationUser2.setText("");
-					
+
 				}
-				
+
 				pane.add(informationUser2, (b + 1), (a + 1));
-				
+
 			}
-			
+
 		}
-		
+
 		box.getChildren().add(pane);
-		
+
 		this.CYKPane.getChildren().add(box);
-		
+
 	}
-	
+
 	// --------------------------------------------------------------------------------
 
 }

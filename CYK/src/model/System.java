@@ -8,6 +8,8 @@ import java.util.List;
 public class System {
 	
 	// --------------------------------------------------------------------------------
+	
+	// Attributes of the system class
 
 	ArrayList<String> factors;
 
@@ -18,6 +20,14 @@ public class System {
 	HashMap<String,List<String>> map;
 	
 	// --------------------------------------------------------------------------------
+	
+	// Constructor method
+	
+	/**
+	 * Constructor method to create a object into another class.
+	 * @param matrix String information with the CYK algorithm
+	 * @param stringLength Size of the string
+	 */
 	
 	public System(String[][] matrix, int stringLength) {	
 		
@@ -33,17 +43,39 @@ public class System {
 	
 	// --------------------------------------------------------------------------------
 	
+	// Get's method of the system class
+	
+	/**
+	 * Method to get the factor of the system.
+	 * @return ArrayList with all the information
+	 */
+	
 	public ArrayList<String> getFactors() {
 		return factors;
 	}
+	
+	/**
+	 * Method to get the main matrix of the system.
+	 * @return String matrix with all the information
+	 */
 	
 	public String[][] getMainMatrix() {
 		return mainMatrix;
 	}
 	
+	/**
+	 * Method to get the result matrix of the system.
+	 * @return String matrix with all the information
+	 */
+	
 	public String[][] getResultMatrix() {
 		return resultMatrix;
 	}
+	
+	/**
+	 * Method to get the map of the system.
+	 * @return String haspMap with all the information
+	 */
 	
 	public HashMap<String, List<String>> getMap() {
 		return map;
@@ -51,23 +83,51 @@ public class System {
 	
 	// --------------------------------------------------------------------------------
 	
+	// Set's method of the system class
+	
+	/**
+	 * Method to set the information of the factor.
+	 * @param factors ArrayList of String's
+	 */
+	
 	public void setFactors(ArrayList<String> factors) {
 		this.factors = factors;
 	}
+	
+	/**
+	 * Method to set the information of the main matrix.
+	 * @param mainMatrix Matrix of string
+	 */
 	
 	public void setMainMatrix(String[][] mainMatrix) {
 		this.mainMatrix = mainMatrix;
 	}
 	
+	/**
+	 * Method to set the information of the result matrix.
+	 * @param resultMatrix Matrix of string
+	 */
+	
 	public void setResultMatrix(String[][] resultMatrix) {
 		this.resultMatrix = resultMatrix;
 	}
+	
+	/**
+	 * Method to set the information of the map.
+	 * @param map HashMap of the string
+	 */
 	
 	public void setMap(HashMap<String, List<String>> map) {
 		this.map = map;
 	}
 	
 	// --------------------------------------------------------------------------------
+	
+	// Add value to the map method
+	
+	/**
+	 * Method to add a value to the map of the system.
+	 */
 
 	public void addValueMap() {
 		
@@ -104,6 +164,14 @@ public class System {
 	}	
 	
 	// --------------------------------------------------------------------------------
+	
+	// add value AUX method
+	
+	/**
+	 * Method AUX to add a value into the system.
+	 * @param aux String with some information from the graphic interface
+	 * @param results List of String's with all the information of the system
+	 */
 
 	public void addValueAux(String aux, List<String> results) {
 		
@@ -112,6 +180,13 @@ public class System {
 	}
 	
 	// --------------------------------------------------------------------------------
+	
+	// CYK algorithm method
+	
+	/**
+	 * Method to use the CYK algorithm into the system (Take the Pseudo code).
+	 * @param W String with the information that the user want to validate
+	 */
 
 	public void CYKAlgorithm(String W) {
 		
@@ -142,6 +217,13 @@ public class System {
 	}
 	
 	// --------------------------------------------------------------------------------
+	
+	// Contains feature method
+	
+	/**
+	 * Method to know if a part of one String it's into the system.
+	 * @return boolean data where true represents it's into the system, and false not
+	 */
 
 	public boolean containsFeature() {
 		
@@ -164,6 +246,13 @@ public class System {
 	}
 	
 	// --------------------------------------------------------------------------------
+	
+	// Add column method
+	
+	/**
+	 * Method to add a column in the first part of the system.
+	 * @param W String with the information that the user want to validate
+	 */
 
 	public void addColumn(String W){
 		
@@ -198,6 +287,14 @@ public class System {
 	}
 	
 	// --------------------------------------------------------------------------------
+	
+	// Generate method
+	
+	/**
+	 * Method to generate the CYK information with the information from the graphic interface.
+	 * @param tuples Couple of string's into a List
+	 * @return String the a new information
+	 */
 
 	public String generate(List<String> tuples) {
 		
@@ -238,6 +335,15 @@ public class System {
 	}
 	
 	// --------------------------------------------------------------------------------
+	
+	// Product method
+	
+	/**
+	 * Method to calculate the product between the partition 1 and 2.
+	 * @param partition1 Array of String with the information of the first partition
+	 * @param partition2 Array of String with the information of the second partition
+	 * @return Array of String the product calculate between the two param's
+	 */
 
 	public String[] product(String[] partition1, String[] partition2) {
 

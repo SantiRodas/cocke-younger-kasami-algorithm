@@ -10,9 +10,17 @@ public class Main extends Application {
 	
 	// --------------------------------------------------------------------------------
 	
+	// Relation the controller class
+	
 	Controller controller;
 	
 	// --------------------------------------------------------------------------------
+	
+	// Constructor method
+	
+	/**
+	 * Constructor method of the Main class.
+	 */
 	
 	public Main() {
 		
@@ -21,6 +29,13 @@ public class Main extends Application {
 	}
 	
 	// --------------------------------------------------------------------------------
+	
+	// Start method
+	
+	/**
+	 * @param args0 Stage that represent the user interface of the system.
+	 * @throws Exception General information of the super class Exception
+	 */
 
 	@Override
 	public void start(Stage arg0) throws Exception {
@@ -52,6 +67,13 @@ public class Main extends Application {
 	}
 	
 	// --------------------------------------------------------------------------------
+	
+	// Main method
+	
+	/**
+	 * Principal method of the system CYK.
+	 * @param args Array string information
+	 */
 	
 	public static void main(String[] args) {
 		
